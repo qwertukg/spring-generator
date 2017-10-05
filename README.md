@@ -1,3 +1,18 @@
+# Kotlin Spring Rest Api basic code generator
+
+### Can make some basic code for you
+
+Just make a simple `config.json` file, show path to it to generator, and set destination folder.
+
+**Generator will make next structure:**
+- models
+- controllers
+- repositories
+- application
+- application.properties
+
+## Sample of `config.json`
+```json
 {
 	"name": "shop",
 	"models": [
@@ -35,10 +50,11 @@
 		{
 			"name": "spring.datasource.password", 
 			"value": "1234"
-		},
-		{
-			"name": "spring.jpa.hibernate.dialect", 
-			"value": "org.hibernate.dialect.MySQL5Dialect"
 		}
 	]
 }
+```
+
+## Killer feature
+Run generator with `-p` parameter, and you can see generated content before saving :)
+
