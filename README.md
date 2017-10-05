@@ -2,7 +2,7 @@
 
 ### Can make some basic code for you
 
-Just make a simple `config.json` file, show path to it to generator, and set destination folder.
+Just make a simple `config.json` file, show path of config to generator, and set destination folder.
 
 **Generator will make next structure:**
 - models
