@@ -7,7 +7,7 @@ import kz.qwertukg.generator.builders.base.WithContentAndPath
  * Created by Daniil Rakhmatulin.
  */
 class ApplicationFile(private val packageName: String) : WithContentAndPath {
-    override val fileName = "application.kt"
+    override val fileName = packageName.split(".").last().capitalize() + "Application.kt"
     override val directoryName = packageName.toPath
     override val content = StringBuilder()
 
@@ -19,9 +19,9 @@ class ApplicationFile(private val packageName: String) : WithContentAndPath {
         content.appendln(watermark)
         content.appendln("@SpringBootApplication")
         content.appendln("@PropertySource(\"classpath:application-$packageName.properties\")")
-        content.appendln("open class $APP_CLASS").appendln()
+        content.appendln("class ${fileName.dropLast(3)}").appendln()
         content.appendln("fun main(args: Array<String>) {")
-        content.appendln("\tSpringApplication.run($APP_CLASS::class.java, *args)")
+        content.appendln("\tSpringApplication.run(${fileName.dropLast(3)}::class.java, *args)")
         content.appendln("}")
     }
 }

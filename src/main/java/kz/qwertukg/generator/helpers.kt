@@ -14,7 +14,7 @@ val String.route: String get() = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDE
 val String.plural: String get() = English.plural(this)
 val String.singular: String get() = English.plural(this, 1)
 
-val String.toPath: String get() = replace(".", File.separator)
+val String.toPath: String get() = "kotlin" + File.separator + replace(".", File.separator)
 
 val logo: String get() = StringBuilder().apply {
     appendln("********************************************************")

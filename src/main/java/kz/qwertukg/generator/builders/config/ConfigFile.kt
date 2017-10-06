@@ -7,7 +7,7 @@ import kz.qwertukg.generator.route
  * Created by Daniil Rakhmatulin.
  */
 class ConfigFile(private val projectName: String) : WithContentAndPath {
-    override val fileName = "application-${projectName.route}.properties"
+    override val fileName = "application-$projectName.properties"
     override val directoryName = "resources"
     override val content = StringBuilder()
 
