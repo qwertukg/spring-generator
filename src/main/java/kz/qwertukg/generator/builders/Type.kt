@@ -8,33 +8,23 @@ import kz.qwertukg.generator.json.*
  */
 class Type(val name: String, val default: Any, val annotations: List<String> = listOf())
 
-fun Property.getType(models: List<Model>, currentModelName: String): Type {
-    val columnAnnotation = "@Column(name = \"${name.snake}\")"
-    val manyToOneAnnotation = "@ManyToOne(cascade = arrayOf(CascadeType.ALL))"
-    val jsonColumnAnnotation = "@JoinColumn(name = \"${currentModelName.snake}_id\")"
-    val oneToManyAnnotation = "@OneToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)"
-
-    val possibleTypes = mutableListOf(
-            Type("Int", 0, mutableListOf(columnAnnotation)),
-            Type("Long", 0, mutableListOf(columnAnnotation)),
-            Type("Double", 0.0, mutableListOf(columnAnnotation)),
-            Type("String", "\"\"", mutableListOf(columnAnnotation))
+fun Property.getType(modelName: String): Type {
+    val possibleTypes = listOf(
+            Type("Int", 0, listOf(Annotation.column(name))),
+            Type("Long", 0L, listOf(Annotation.column(name))),
+            Type("Double", 0.0, listOf(Annotation.column(name))),
+            Type("String", "\"\"", listOf(Annotation.column(name)))
     )
 
+    return possibleTypes.firstOrNull { it.name == type.capitalize() } ?: getRelationType(modelName)
+}
+
+private fun Property.getRelationType(modelName: String): Type {
     val typeName = type.capitalize()
 
-    if (!possibleTypes.any { it.name == typeName }) {
-        return if (models.any { it.name == typeName })
-            Type(typeName + "?", "null", listOf(
-                    manyToOneAnnotation
-            ))
-        else if (models.any { it.name in typeName } && "<" in typeName && ">" in typeName)
-            Type(typeName + "?", "null", listOf(
-                    jsonColumnAnnotation,
-                    oneToManyAnnotation
-            ))
-        else throw NoSuchElementException("Can't find related model or Type with name [$typeName]")
-    }
+    if (hasOne != null) return Type(typeName + "?", "null", listOf(Annotation.column(name + "_id"), Annotation.manyToOne()))
+    if (hasMany != null) return Type(typeName + "?", "null", listOf(Annotation.joinColumn(modelName), Annotation.oneToMany()))
+    if (manyMany != null) TODO("Not implemented yet")
 
-    return possibleTypes.first { it.name == typeName }
+    throw NoSuchElementException("Can't find type [$typeName]")
 }

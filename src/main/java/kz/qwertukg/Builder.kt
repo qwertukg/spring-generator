@@ -21,7 +21,7 @@ class Builder(private val project: Project, private val print: Boolean = false) 
             project.models.forEach { model ->
                 addModel(model.name) {
                     model.properties.forEach { property ->
-                        addProperty(property.name, property.getType(project.models, model.name))
+                        addProperty(property.name, property.getType(model.name))
                     }
                 }
             }

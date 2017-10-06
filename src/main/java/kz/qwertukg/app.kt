@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     val project = Gson().fromJson(File(configPath).readText(), Project::class.java)!!
 
     val pp = args.isNotEmpty() && args[0] == "-p"
-    val results = Builder(project, pp).build()
+    val results = Builder(project, true).build()
 
     print("Input destination folder path: ")
     val destinationPath = readLine()!!

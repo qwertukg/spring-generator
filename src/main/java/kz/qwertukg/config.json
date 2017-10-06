@@ -1,18 +1,3 @@
-# Kotlin Spring Rest Api basic code generator
-
-### Can make some basic code for you
-
-Just make a simple `config.json` file, show path of config to generator, and set destination folder.
-
-**Generator will make next structure:**
-- models
-- controllers
-- repositories
-- application
-- application.properties
-
-## Sample of `config.json`
-```json
 {
   "name": "shop",
   "models": [
@@ -53,8 +38,3 @@ Just make a simple `config.json` file, show path of config to generator, and set
     }
   ]
 }
-```
-
-## Killer feature
-Run generator with `-p` parameter, and you can see generated content before saving :)
-
