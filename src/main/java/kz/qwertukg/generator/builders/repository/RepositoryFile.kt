@@ -9,7 +9,7 @@ import kz.qwertukg.generator.builders.base.WithContentAndPath
  */
 class RepositoryFile(private val packageName: String) : WithContentAndPath {
     override val fileName = "repositories.kt"
-    override val directoryName = packageName + File.separator + SYS_DIR
+    override val directoryName = packageName.toPath + File.separator + SYS_DIR
     override val content = StringBuilder()
 
     init {
