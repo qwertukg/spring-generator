@@ -9,7 +9,7 @@ import kz.qwertukg.generator.builders.base.WithContentAndPath
  */
 class ModelFile(private val packageName: String) : WithContentAndPath {
     override val fileName = "models.kt"
-    override val directoryName = packageName + File.separator + SYS_DIR
+    override val directoryName = packageName.toPath + File.separator + SYS_DIR
     override val content = StringBuilder()
 
     init {

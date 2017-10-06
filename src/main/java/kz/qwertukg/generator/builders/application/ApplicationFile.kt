@@ -8,7 +8,7 @@ import kz.qwertukg.generator.builders.base.WithContentAndPath
  */
 class ApplicationFile(private val packageName: String) : WithContentAndPath {
     override val fileName = "application.kt"
-    override val directoryName = packageName
+    override val directoryName = packageName.toPath
     override val content = StringBuilder()
 
     init {

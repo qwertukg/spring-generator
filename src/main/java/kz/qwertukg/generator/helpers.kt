@@ -2,6 +2,7 @@ package kz.qwertukg.generator
 
 import org.atteo.evo.inflector.English
 import com.google.common.base.CaseFormat
+import java.io.File
 
 /**
  * Created by Daniil Rakhmatulin.
@@ -12,6 +13,8 @@ val String.route: String get() = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDE
 
 val String.plural: String get() = English.plural(this)
 val String.singular: String get() = English.plural(this, 1)
+
+val String.toPath: String get() = replace(".", File.separator)
 
 val logo: String get() = StringBuilder().apply {
     appendln("********************************************************")
