@@ -16,10 +16,11 @@ fun main(args: Array<String>) {
     val project = Gson().fromJson(File(configPath).readText(), Project::class.java)!!
 
     val pp = args.isNotEmpty() && args[0] == "-p"
-    val results = Builder(project, true).build()
+    val results = Builder.build(project, pp)
 
     print("Input destination folder path: ")
     val destinationPath = readLine()!!
 
     results.forEach { it.save(destinationPath) }
 }
+

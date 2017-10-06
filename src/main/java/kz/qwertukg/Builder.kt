@@ -1,21 +1,23 @@
 package kz.qwertukg
 
-import kz.qwertukg.generator.builders.application.createApplication
+import java.io.File
+import com.google.gson.Gson
 import kz.qwertukg.generator.json.Project
 import kz.qwertukg.generator.builders.getType
 import kz.qwertukg.generator.builders.model.createModels
-import kz.qwertukg.generator.builders.base.WithContentAndPath
 import kz.qwertukg.generator.builders.config.createConfig
+import kz.qwertukg.generator.builders.base.WithContentAndPath
 import kz.qwertukg.generator.builders.controller.createControllers
+import kz.qwertukg.generator.builders.application.createApplication
 import kz.qwertukg.generator.builders.repository.createRepositories
 
 /**
  * Created by Daniil Rakhmatulin.
  */
-class Builder(private val project: Project, private val print: Boolean = false) {
+object Builder {
     private val list = mutableListOf<WithContentAndPath>()
 
-    fun build(): List<WithContentAndPath> {
+    fun build(project: Project, print: Boolean = false): List<WithContentAndPath> {
         // generate models
         list.add(createModels(project.name) {
             project.models.forEach { model ->
@@ -56,7 +58,14 @@ class Builder(private val project: Project, private val print: Boolean = false) 
         return list
     }
 
-    fun pp(builder: WithContentAndPath) {
+    fun generate(configPath: String, destinationPath: String, print: Boolean = false) {
+        val project = Gson().fromJson(File(configPath).readText(), Project::class.java)!!
+        val results = build(project, print)
+
+        results.forEach { it.save(destinationPath) }
+    }
+
+    private fun pp(builder: WithContentAndPath) {
         println("------------------------------------------")
         println(builder.fileName)
         println("------------------------------------------")
