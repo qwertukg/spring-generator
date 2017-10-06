@@ -19,7 +19,7 @@ object Builder {
 
     fun build(project: Project, print: Boolean = false): List<WithContentAndPath> {
         // generate models
-        list.add(createModels(project.name) {
+        list.add(createModels(project.packageName) {
             project.models.forEach { model ->
                 addModel(model.name) {
                     model.properties.forEach { property ->
@@ -30,24 +30,24 @@ object Builder {
         })
 
         // generate controllers
-        list.add(createControllers(project.name) {
+        list.add(createControllers(project.packageName) {
             project.models.forEach { model ->
                 addController(model.name) {  }
             }
         })
 
         // generate repositories
-        list.add(createRepositories(project.name) {
+        list.add(createRepositories(project.packageName) {
             project.models.forEach { model ->
                 addRepository(model.name) {  }
             }
         })
 
         // generate application
-        list.add(createApplication(project.name) {  })
+        list.add(createApplication(project.packageName) {  })
 
         // generate application.properties
-        list.add(createConfig(project.name) {
+        list.add(createConfig(project.packageName) {
             project.config.forEach { item ->
                 addItem(item.name, item.value) {  }
             }

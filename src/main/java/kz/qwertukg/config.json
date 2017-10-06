@@ -1,5 +1,5 @@
 {
-  "name": "shop",
+  "packageName": "com.example.demo",
   "models": [
     {
       "name": "Product",

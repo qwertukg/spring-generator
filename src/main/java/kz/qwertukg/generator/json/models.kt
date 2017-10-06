@@ -4,7 +4,7 @@ package kz.qwertukg.generator.json
 * Created by Daniil Rakhmatulin.
 */
 data class Project(
-        val name: String = "",
+        val packageName: String = "",
         val models: List<Model> = listOf(),
         val config: List<ConfigItem> = listOf()
 )

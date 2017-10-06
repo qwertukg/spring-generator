@@ -11,7 +11,7 @@ interface WithContentAndPath {
     val content: StringBuilder
 
     fun save(destinationPath: String) {
-        val path = destinationPath + File.separator + directoryName + File.separator + fileName
+        val path = tryToFindKotlinDir(destinationPath) + File.separator + "" + directoryName + File.separator + fileName
         File(path).apply {
             parentFile.mkdirs()
             createNewFile()
@@ -19,5 +19,12 @@ interface WithContentAndPath {
         }
 
         println("-> [$path] saved!")
+    }
+
+    private fun tryToFindKotlinDir(destinationPath: String): String {
+        return if (File(destinationPath + File.separator + "kotlin").isDirectory)
+            destinationPath + File.separator + "kotlin"
+        else
+            destinationPath + File.separator + "java"
     }
 }
